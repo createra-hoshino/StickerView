@@ -6,7 +6,7 @@ import android.view.MotionEvent;
  * @author wupanjie
  */
 
-public class ZoomIconEvent implements StickerIconEvent {
+public class ZoomAndRotateIconEvent implements StickerIconEvent {
   @Override public void onActionDown(StickerView stickerView, MotionEvent event) {
 
   }

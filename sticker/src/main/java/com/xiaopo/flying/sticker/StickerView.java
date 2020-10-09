@@ -10,12 +10,12 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.os.SystemClock;
-import android.support.annotation.IntDef;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewCompat;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -38,6 +38,7 @@ public class StickerView extends FrameLayout {
   private final boolean showIcons;
   private final boolean showBorder;
   private final boolean bringToFrontCurrentSticker;
+  private final boolean zoomWithTwoFinger;
 
   @IntDef({
       ActionMode.NONE, ActionMode.DRAG, ActionMode.ZOOM_WITH_TWO_FINGER, ActionMode.ICON,
@@ -119,7 +120,8 @@ public class StickerView extends FrameLayout {
       showBorder = a.getBoolean(R.styleable.StickerView_showBorder, false);
       bringToFrontCurrentSticker =
           a.getBoolean(R.styleable.StickerView_bringToFrontCurrentSticker, false);
-
+      zoomWithTwoFinger =
+          a.getBoolean(R.styleable.StickerView_zoomWithTwoFinger, false);
       borderPaint.setAntiAlias(true);
       borderPaint.setColor(a.getColor(R.styleable.StickerView_borderColor, Color.BLACK));
       borderPaint.setAlpha(a.getInteger(R.styleable.StickerView_borderAlpha, 128));
@@ -140,7 +142,7 @@ public class StickerView extends FrameLayout {
     BitmapStickerIcon zoomIcon = new BitmapStickerIcon(
         ContextCompat.getDrawable(getContext(), R.drawable.sticker_ic_scale_white_18dp),
         BitmapStickerIcon.RIGHT_BOTOM);
-    zoomIcon.setIconEvent(new ZoomIconEvent());
+    zoomIcon.setIconEvent(new ZoomAndRotateIconEvent());
     BitmapStickerIcon flipIcon = new BitmapStickerIcon(
         ContextCompat.getDrawable(getContext(), R.drawable.sticker_ic_flip_white_18dp),
         BitmapStickerIcon.RIGHT_TOP);
@@ -407,7 +409,7 @@ public class StickerView extends FrameLayout {
         }
         break;
       case ActionMode.ZOOM_WITH_TWO_FINGER:
-        if (handlingSticker != null) {
+        if (handlingSticker != null && zoomWithTwoFinger) {
           float newDistance = calculateDistance(event);
           float newRotation = calculateRotation(event);
 
@@ -427,14 +429,18 @@ public class StickerView extends FrameLayout {
         break;
     }
   }
-
+  
+  public void rotateCurrentSticker(@NonNull MotionEvent event) {
+    zoomAndRotateSticker(handlingSticker, event, false);
+  }
+  
   public void zoomAndRotateCurrentSticker(@NonNull MotionEvent event) {
-    zoomAndRotateSticker(handlingSticker, event);
+    zoomAndRotateSticker(handlingSticker, event, true);
   }
 
-  public void zoomAndRotateSticker(@Nullable Sticker sticker, @NonNull MotionEvent event) {
+  public void zoomAndRotateSticker(@Nullable Sticker sticker, @NonNull MotionEvent event, boolean isZoomable) {
     if (sticker != null) {
-      float newDistance = calculateDistance(midPoint.x, midPoint.y, event.getX(), event.getY());
+      float newDistance = isZoomable ? calculateDistance(midPoint.x, midPoint.y, event.getX(), event.getY()) : oldDistance;
       float newRotation = calculateRotation(midPoint.x, midPoint.y, event.getX(), event.getY());
 
       moveMatrix.set(downMatrix);

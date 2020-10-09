@@ -5,11 +5,11 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.text.Layout;
 import android.util.Log;
 import android.view.MenuItem;
@@ -20,10 +20,11 @@ import com.xiaopo.flying.sticker.BitmapStickerIcon;
 import com.xiaopo.flying.sticker.DeleteIconEvent;
 import com.xiaopo.flying.sticker.DrawableSticker;
 import com.xiaopo.flying.sticker.FlipHorizontallyEvent;
+import com.xiaopo.flying.sticker.RotateIconEvent;
 import com.xiaopo.flying.sticker.Sticker;
 import com.xiaopo.flying.sticker.StickerView;
 import com.xiaopo.flying.sticker.TextSticker;
-import com.xiaopo.flying.sticker.ZoomIconEvent;
+import com.xiaopo.flying.sticker.ZoomAndRotateIconEvent;
 import com.xiaopo.flying.stickerview.util.FileUtil;
 
 import java.io.File;
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
     BitmapStickerIcon zoomIcon = new BitmapStickerIcon(ContextCompat.getDrawable(this,
             com.xiaopo.flying.sticker.R.drawable.sticker_ic_scale_white_18dp),
             BitmapStickerIcon.RIGHT_BOTOM);
-    zoomIcon.setIconEvent(new ZoomIconEvent());
+    zoomIcon.setIconEvent(new ZoomAndRotateIconEvent());
+//    zoomIcon.setIconEvent(new RotateIconEvent());
 
     BitmapStickerIcon flipIcon = new BitmapStickerIcon(ContextCompat.getDrawable(this,
             com.xiaopo.flying.sticker.R.drawable.sticker_ic_flip_white_18dp),

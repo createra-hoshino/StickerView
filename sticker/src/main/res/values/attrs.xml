@@ -6,5 +6,6 @@
         <attr name="bringToFrontCurrentSticker" format="boolean" />
         <attr name="borderColor" format="color"/>
         <attr name="borderAlpha" format="integer"/>
+        <attr name="zoomWithTwoFinger" format="boolean" />
     </declare-styleable>
 </resources>
