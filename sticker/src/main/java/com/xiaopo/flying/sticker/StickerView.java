@@ -102,6 +102,8 @@ public class StickerView extends FrameLayout {
   private long lastClickTime = 0;
   private int minClickDelayTime = DEFAULT_MIN_CLICK_DELAY_TIME;
 
+  private boolean isSelectedNothing;
+
   public StickerView(Context context) {
     this(context, null);
   }
@@ -201,7 +203,7 @@ public class StickerView extends FrameLayout {
       }
     }
 
-    if (handlingSticker != null && !locked && (showBorder || showIcons)) {
+    if (handlingSticker != null && !locked && (showBorder || showIcons) && !isSelectedNothing) {
 
       getStickerPoints(handlingSticker, bitmapPoints);
 
@@ -275,6 +277,7 @@ public class StickerView extends FrameLayout {
   }
 
   @Override public boolean onTouchEvent(MotionEvent event) {
+    isSelectedNothing = false;
     if (locked) {
       return super.onTouchEvent(event);
     }
@@ -284,7 +287,8 @@ public class StickerView extends FrameLayout {
     switch (action) {
       case MotionEvent.ACTION_DOWN:
         if (!onTouchDown(event)) {
-          return false;
+          isSelectedNothing = true;
+          return true;
         }
         break;
       case MotionEvent.ACTION_POINTER_DOWN:
