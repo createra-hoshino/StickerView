@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="StickerView">
-        <attr name="showIcons" format="boolean" />
-        <attr name="showBorder" format="boolean" />
-        <attr name="bringToFrontCurrentSticker" format="boolean" />
-        <attr name="borderColor" format="color"/>
-        <attr name="borderAlpha" format="integer"/>
-        <attr name="zoomWithTwoFinger" format="boolean" />
+        <attr name="sticker_showIcons" format="boolean" />
+        <attr name="sticker_showBorder" format="boolean" />
+        <attr name="sticker_bringToFrontCurrentSticker" format="boolean" />
+        <attr name="sticker_borderColor" format="color"/>
+        <attr name="sticker_borderAlpha" format="integer"/>
+        <attr name="sticker_zoomWithTwoFinger" format="boolean" />
     </declare-styleable>
 </resources>

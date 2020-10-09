@@ -116,15 +116,15 @@ public class StickerView extends FrameLayout {
     TypedArray a = null;
     try {
       a = context.obtainStyledAttributes(attrs, R.styleable.StickerView);
-      showIcons = a.getBoolean(R.styleable.StickerView_showIcons, false);
-      showBorder = a.getBoolean(R.styleable.StickerView_showBorder, false);
+      showIcons = a.getBoolean(R.styleable.StickerView_sticker_showIcons, false);
+      showBorder = a.getBoolean(R.styleable.StickerView_sticker_showBorder, false);
       bringToFrontCurrentSticker =
-          a.getBoolean(R.styleable.StickerView_bringToFrontCurrentSticker, false);
+          a.getBoolean(R.styleable.StickerView_sticker_bringToFrontCurrentSticker, false);
       zoomWithTwoFinger =
-          a.getBoolean(R.styleable.StickerView_zoomWithTwoFinger, false);
+          a.getBoolean(R.styleable.StickerView_sticker_zoomWithTwoFinger, false);
       borderPaint.setAntiAlias(true);
-      borderPaint.setColor(a.getColor(R.styleable.StickerView_borderColor, Color.BLACK));
-      borderPaint.setAlpha(a.getInteger(R.styleable.StickerView_borderAlpha, 128));
+      borderPaint.setColor(a.getColor(R.styleable.StickerView_sticker_borderColor, Color.BLACK));
+      borderPaint.setAlpha(a.getInteger(R.styleable.StickerView_sticker_borderAlpha, 128));
 
       configDefaultIcons();
     } finally {
